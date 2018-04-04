@@ -1,5 +1,8 @@
 package com.fsu.base.federationofsport.config;
 
+import com.fsu.base.federationofsport.dao.UserDao;
+import com.fsu.base.federationofsport.service.UserService;
+import com.fsu.base.federationofsport.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -25,7 +28,12 @@ import javax.annotation.Resource;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Resource(name = "userDetailsService")
+    @Bean
+    public UserDetailsService userService() {
+        return new UserServiceImpl();
+    }
+
+    @Resource(name = "userService")
     private UserDetailsService userDetailsService;
 
     @Override

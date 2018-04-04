@@ -18,7 +18,7 @@ import java.util.List;
  * Created by yana on 04.04.18.
  */
 
-@Service(value = "userDetailsService")
+@Service(value = "userService")
 public class UserServiceImpl implements UserDetailsService, UserService {
 
     @Autowired
@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
     public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
         User user = userDao.findByUsername(userId);
-        if(user == null){
+        if (user == null) {
             throw new UsernameNotFoundException("Invalid username or password.");
         }
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), getAuthority());
@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     @Override
     public User save(User user) {
         System.out.println("Save: " + user);
-        User saved =  userDao.save(user);
+        User saved = userDao.save(user);
         System.out.println("Saved: " + saved);
         return saved;
     }
