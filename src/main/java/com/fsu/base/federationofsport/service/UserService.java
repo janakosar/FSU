@@ -1,21 +1,16 @@
 package com.fsu.base.federationofsport.service;
 
-import com.fsu.base.federationofsport.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
+import com.fsu.base.federationofsport.model.User;
 
-@Service("userDetailsService")
-public class UserService implements UserDetailsService {
-	
-	@Autowired
-	private UserRepository userRepository;
+import java.util.List;
 
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		System.out.println("Username: " + username);
-		return userRepository.findOneByUsername(username);
-	}
+public interface UserService {
+
+	User save(User user);
+
+	List<User> findAll();
+
+	User findById(long id);
+
+	void delete(long id);
 }
