@@ -12,7 +12,7 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping("/users/")
+@RequestMapping("api/v1/users/")
 public class UserController {
 
     @Autowired
@@ -28,7 +28,7 @@ public class UserController {
         return userService.findById(id);
     }
 
-    @RequestMapping(value = "", method = RequestMethod.POST)
+    @RequestMapping(value = "create", method = RequestMethod.POST)
     public User create(@RequestBody User user){
         return userService.save(user);
     }
