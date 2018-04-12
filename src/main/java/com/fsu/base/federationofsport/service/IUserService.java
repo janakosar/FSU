@@ -4,7 +4,7 @@ import com.fsu.base.federationofsport.model.User;
 
 import java.util.List;
 
-public interface UserService {
+public interface IUserService {
 
 	User save(User user);
 

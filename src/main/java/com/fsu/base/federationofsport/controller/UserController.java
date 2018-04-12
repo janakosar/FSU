@@ -1,7 +1,7 @@
 package com.fsu.base.federationofsport.controller;
 
 import com.fsu.base.federationofsport.model.User;
-import com.fsu.base.federationofsport.service.UserService;
+import com.fsu.base.federationofsport.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,8 +15,12 @@ import java.util.List;
 @RequestMapping("api/v1/users/")
 public class UserController {
 
+    private IUserService userService;
+
     @Autowired
-    private UserService userService;
+    UserController(IUserService userService){
+        this.userService = userService;
+    }
 
     @RequestMapping(value="", method = RequestMethod.GET)
     public List<User> listUsers(){

@@ -2,7 +2,7 @@ package com.fsu.base.federationofsport.service.impl;
 
 import com.fsu.base.federationofsport.dao.UserDao;
 import com.fsu.base.federationofsport.model.User;
-import com.fsu.base.federationofsport.service.UserService;
+import com.fsu.base.federationofsport.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,10 +19,14 @@ import java.util.List;
  */
 
 @Service(value = "userService")
-public class UserServiceImpl implements UserDetailsService, UserService {
+public class UserService implements UserDetailsService, IUserService {
+
+    private UserDao userDao;
 
     @Autowired
-    private UserDao userDao;
+    UserService(UserDao userDao){
+        this.userDao = userDao;
+    }
 
     public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
         User user = userDao.findByUsername(userId);

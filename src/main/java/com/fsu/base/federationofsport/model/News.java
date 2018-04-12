@@ -17,7 +17,7 @@ public class News {
     private String description;
 
     @Enumerated(EnumType.STRING)
-    private NewsCategory newsCategory;
+    private NewsCategory category;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
