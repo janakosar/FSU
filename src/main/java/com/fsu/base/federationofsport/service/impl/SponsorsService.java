@@ -4,16 +4,18 @@ import com.fsu.base.federationofsport.dao.SponsorsDao;
 import com.fsu.base.federationofsport.model.Sponsor;
 import com.fsu.base.federationofsport.service.ISponsorsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * Created by yana on 12.04.18.
  */
+@Service
 public class SponsorsService implements ISponsorsService {
 
     private SponsorsDao sponsorsDao;
 
     @Autowired
-    SponsorsService(SponsorsDao sponsorsDao) {
+    public SponsorsService(SponsorsDao sponsorsDao) {
         this.sponsorsDao = sponsorsDao;
     }
 

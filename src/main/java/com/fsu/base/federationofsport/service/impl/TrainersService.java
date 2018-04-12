@@ -4,16 +4,18 @@ import com.fsu.base.federationofsport.dao.TrainersDao;
 import com.fsu.base.federationofsport.model.Trainer;
 import com.fsu.base.federationofsport.service.ITrainersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * Created by yana on 12.04.18.
  */
+@Service
 public class TrainersService implements ITrainersService {
 
     private TrainersDao trainersDao;
 
     @Autowired
-    TrainersService(TrainersDao trainersDao) {
+    public TrainersService(TrainersDao trainersDao) {
         this.trainersDao = trainersDao;
     }
 

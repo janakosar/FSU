@@ -28,11 +28,6 @@ import javax.servlet.http.HttpServletRequest;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Bean
-    public UserDetailsService userService() {
-        return new UserService();
-    }
-
     @Resource(name = "userService")
     private UserDetailsService userDetailsService;
 

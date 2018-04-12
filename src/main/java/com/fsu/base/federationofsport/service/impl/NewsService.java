@@ -5,16 +5,18 @@ import com.fsu.base.federationofsport.model.News;
 import com.fsu.base.federationofsport.model.NewsCategory;
 import com.fsu.base.federationofsport.service.INewsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * Created by yana on 12.04.18.
  */
+@Service
 public class NewsService implements INewsService {
 
     private NewsDao newsDao;
 
     @Autowired
-    NewsService(NewsDao newsDao) {
+    public NewsService(NewsDao newsDao) {
         this.newsDao = newsDao;
     }
 
@@ -23,10 +25,10 @@ public class NewsService implements INewsService {
         return newsDao.findAll();
     }
 
-    @Override
-    public Iterable<News> getAll(NewsCategory category) {
-        return newsDao.findAll(category);
-    }
+//    @Override
+//    public Iterable<News> getAll(NewsCategory category) {
+//        return newsDao.findAll(category);
+//    }
 
     @Override
     public News get(long id) {

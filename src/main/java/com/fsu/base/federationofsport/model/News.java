@@ -1,5 +1,9 @@
 package com.fsu.base.federationofsport.model;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -7,6 +11,7 @@ import java.util.Date;
  * Created by yana on 12.04.18.
  */
 @Entity
+@Getter @Setter @NoArgsConstructor
 public class News {
 
     @Id
@@ -21,5 +26,7 @@ public class News {
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
+
+
 
 }

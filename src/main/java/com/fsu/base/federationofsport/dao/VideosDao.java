@@ -1,7 +1,6 @@
 package com.fsu.base.federationofsport.dao;
 
 import com.fsu.base.federationofsport.model.Video;
-import com.fsu.base.federationofsport.model.VideoCategory;
 import org.springframework.data.repository.CrudRepository;
 
 /**
@@ -9,5 +8,4 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface VideosDao extends CrudRepository<Video, Long>{
 
-    Iterable<Video> findAll(VideoCategory category);
 }

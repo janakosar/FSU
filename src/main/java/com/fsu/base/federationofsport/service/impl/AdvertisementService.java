@@ -4,16 +4,18 @@ import com.fsu.base.federationofsport.dao.AdvertisementDao;
 import com.fsu.base.federationofsport.model.Advertisement;
 import com.fsu.base.federationofsport.service.IAdvertisementService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * Created by yana on 12.04.18.
  */
+@Service
 public class AdvertisementService implements IAdvertisementService {
 
     private AdvertisementDao advertisementDao;
 
     @Autowired
-    AdvertisementService(AdvertisementDao advertisementDao) {
+    public AdvertisementService(AdvertisementDao advertisementDao) {
         this.advertisementDao = advertisementDao;
     }
 
