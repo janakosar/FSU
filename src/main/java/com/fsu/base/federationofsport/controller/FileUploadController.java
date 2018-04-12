@@ -1,5 +1,6 @@
 package com.fsu.base.federationofsport.controller;
 
+import com.fsu.base.federationofsport.model.Image;
 import com.fsu.base.federationofsport.storage.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -28,22 +29,19 @@ public class FileUploadController {
 
     List<String> files = new ArrayList<String>();
 
-    @PostMapping("/post")
-    public ResponseEntity<String> handleFileUpload(@RequestParam("file") MultipartFile file) {
-        String message = "";
+    @PostMapping("/images/upload")
+    public ResponseEntity<Image> handleFileUpload(@RequestParam("file") MultipartFile file) {
         try {
             storageService.store(file);
             files.add(file.getOriginalFilename());
-
-            message = "You successfully uploaded " + file.getOriginalFilename() + "!";
-            return ResponseEntity.status(HttpStatus.OK).body(message);
+            return ResponseEntity.status(HttpStatus.OK).body(new Image(file.getOriginalFilename()));
         } catch (Exception e) {
-            message = "FAIL to upload " + file.getOriginalFilename() + "!";
-            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(message);
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(null);
         }
     }
 
-    @GetMapping("/getallfiles")
+    @GetMapping("/images")
     public ResponseEntity<List<String>> getListFiles(Model model) {
         List<String> fileNames = files
                 .stream().map(fileName -> MvcUriComponentsBuilder
@@ -53,7 +51,7 @@ public class FileUploadController {
         return ResponseEntity.ok().body(fileNames);
     }
 
-    @GetMapping("/files/{filename:.+}")
+    @GetMapping("/images/{filename:.+}")
     @ResponseBody
     public ResponseEntity<Resource> getFile(@PathVariable String filename) {
         Resource file = storageService.loadFile(filename);
