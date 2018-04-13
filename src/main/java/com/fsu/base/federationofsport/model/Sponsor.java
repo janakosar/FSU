@@ -19,6 +19,6 @@ public class Sponsor {
     @GeneratedValue
     private long id;
 
-    private String imageUrl;
+    private String image;
     private String href;
 }

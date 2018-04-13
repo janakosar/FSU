@@ -12,7 +12,7 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping("api/v1/users/")
+@RequestMapping("api/v1/users")
 public class UserController {
 
     private IUserService userService;
@@ -22,25 +22,24 @@ public class UserController {
         this.userService = userService;
     }
 
-    @RequestMapping(value="", method = RequestMethod.GET)
-    public List<User> listUsers(){
+    @GetMapping
+    public List<User> getAll(){
         return userService.findAll();
     }
 
-    @RequestMapping(value="{id}", method = RequestMethod.GET)
-    public User getUser(@PathVariable(value = "id") Long id){
+    @GetMapping(path="/{id}")
+    public User get(@PathVariable Long id){
         return userService.findById(id);
     }
 
-    @RequestMapping(value = "create", method = RequestMethod.POST)
+    @PostMapping
     public User create(@RequestBody User user){
         return userService.save(user);
     }
 
-    @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-    public String delete(@PathVariable(value = "id") Long id){
+    @DeleteMapping(path = "/{id}")
+    public void delete(@PathVariable Long id){
         userService.delete(id);
-        return "success";
     }
 
 }

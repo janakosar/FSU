@@ -3,6 +3,7 @@ package com.fsu.base.federationofsport.service.impl;
 import com.fsu.base.federationofsport.dao.CheerleadersDao;
 import com.fsu.base.federationofsport.model.Cheerleader;
 import com.fsu.base.federationofsport.service.ICheerleadersService;
+import com.fsu.base.federationofsport.storage.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +14,13 @@ import org.springframework.stereotype.Service;
 public class CheerleadersService implements ICheerleadersService {
 
     private CheerleadersDao cheerleadersDao;
+    private StorageService storageService;
 
     @Autowired
-    public CheerleadersService(CheerleadersDao cheerleadersDao) {
+    public CheerleadersService(CheerleadersDao cheerleadersDao,
+                               StorageService storageService) {
         this.cheerleadersDao = cheerleadersDao;
+        this.storageService  = storageService;
     }
 
     @Override
@@ -26,6 +30,9 @@ public class CheerleadersService implements ICheerleadersService {
 
     @Override
     public Cheerleader add(Cheerleader cheerleader) {
+
+        cheerleader.setImage(storageService.store(cheerleader.getImage()));
+
         return cheerleadersDao.save(cheerleader);
     }
 

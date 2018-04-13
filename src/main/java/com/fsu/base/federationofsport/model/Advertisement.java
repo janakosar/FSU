@@ -19,7 +19,7 @@ public class Advertisement {
     @GeneratedValue
     private long id;
 
-    private String imageUrl;
+    private String image;
     private String href;
 
 }

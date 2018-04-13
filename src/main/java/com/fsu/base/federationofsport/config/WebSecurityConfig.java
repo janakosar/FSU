@@ -1,6 +1,5 @@
 package com.fsu.base.federationofsport.config;
 
-import com.fsu.base.federationofsport.service.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;

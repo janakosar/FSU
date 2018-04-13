@@ -20,5 +20,5 @@ public class Cheerleader {
     @GeneratedValue
     private long id;
 
-    private String imageUrl;
+    private String image;
 }

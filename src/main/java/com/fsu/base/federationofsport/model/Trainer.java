@@ -19,7 +19,7 @@ public class Trainer {
     @GeneratedValue
     private long id;
 
-    private String imageUrl;
+    private String image;
     private String firstName;
     private String lastName;
     private String description;

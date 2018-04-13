@@ -21,6 +21,8 @@ public class News {
     private String title;
     private String description;
 
+    private String image;
+
     @Enumerated(EnumType.STRING)
     private NewsCategory category;
 

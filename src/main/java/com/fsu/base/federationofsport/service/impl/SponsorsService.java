@@ -3,6 +3,7 @@ package com.fsu.base.federationofsport.service.impl;
 import com.fsu.base.federationofsport.dao.SponsorsDao;
 import com.fsu.base.federationofsport.model.Sponsor;
 import com.fsu.base.federationofsport.service.ISponsorsService;
+import com.fsu.base.federationofsport.storage.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +14,13 @@ import org.springframework.stereotype.Service;
 public class SponsorsService implements ISponsorsService {
 
     private SponsorsDao sponsorsDao;
+    private StorageService storageService;
 
     @Autowired
-    public SponsorsService(SponsorsDao sponsorsDao) {
+    public SponsorsService(SponsorsDao sponsorsDao,
+                           StorageService storageService) {
         this.sponsorsDao = sponsorsDao;
+        this.storageService = storageService;
     }
 
     @Override
@@ -26,6 +30,9 @@ public class SponsorsService implements ISponsorsService {
 
     @Override
     public Sponsor add(Sponsor sponsor) {
+
+        sponsor.setImage(storageService.store(sponsor.getImage()));
+
         return sponsorsDao.save(sponsor);
     }
 

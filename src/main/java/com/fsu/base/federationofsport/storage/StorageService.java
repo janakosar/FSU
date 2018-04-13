@@ -1,5 +1,7 @@
 package com.fsu.base.federationofsport.storage;
 
+import com.fsu.base.federationofsport.controller.ImagesRestController;
+import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
@@ -7,9 +9,14 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -20,21 +27,44 @@ import java.nio.file.Paths;
 @Service
 public class StorageService {
 
-    Logger log = LoggerFactory.getLogger(this.getClass().getName());
     private final Path rootLocation = Paths.get("upload-dir");
 
-    public void store(MultipartFile file) {
+    public String store(String imageBase64) {
+        byte[] data = Base64.decodeBase64(imageBase64);
+        String filename = "image_" + System.currentTimeMillis() + ".png";
+        Path path = this.rootLocation.resolve(filename);
+
+        OutputStream stream = null;
         try {
-            Files.copy(file.getInputStream(), this.rootLocation.resolve(file.getOriginalFilename()));
+            stream = new FileOutputStream(path.toFile());
+            stream.write(data);
         } catch (Exception e) {
-            throw new RuntimeException("FAIL!");
+            e.printStackTrace();
+        } finally {
+
+            if (stream != null) {
+                try {
+                    stream.flush();
+                    stream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
+
+        return getUrl(filename);
+    }
+
+    private String getUrl(String filename){
+        return MvcUriComponentsBuilder
+                .fromMethodName(ImagesRestController.class, "getFile", filename).build().toString();
     }
 
     public Resource loadFile(String filename) {
         try {
             Path file = rootLocation.resolve(filename);
-            Resource resource = new UrlResource(file.toUri());
+            URI uri = file.toUri();
+            Resource resource = new UrlResource(uri);
             if (resource.exists() || resource.isReadable()) {
                 return resource;
             } else {

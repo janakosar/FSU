@@ -4,6 +4,8 @@ import com.fsu.base.federationofsport.model.News;
 import com.fsu.base.federationofsport.model.NewsCategory;
 import com.fsu.base.federationofsport.service.INewsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 /**
