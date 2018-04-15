@@ -26,13 +26,13 @@ public class VideosRestController {
     }
 
 
-    @PostMapping
+    @PostMapping(path = "/create")
     Video add(@RequestBody Video video){
 
         return videosService.add(video);
     }
 
-    @DeleteMapping(path = "/{id}")
+    @DeleteMapping(path = "/delete/{id}")
     void  delete(@PathVariable Long id){
         videosService.delete(id);
     }

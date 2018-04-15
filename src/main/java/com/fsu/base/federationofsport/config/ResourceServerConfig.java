@@ -27,8 +27,15 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
         http.
                 anonymous().disable()
                 .authorizeRequests()
-                .antMatchers("/users/**").authenticated()
-                .and().exceptionHandling().accessDeniedHandler(new OAuth2AccessDeniedHandler());
+                .antMatchers(
+                        "/api/v1/trainers/create", "/api/v1/trainers/delete/**",
+                        "/api/v1/advertisement/create", "/api/v1/advertisement/delete/**",
+                        "/api/v1/cheerleaders/create", "/api/v1/cheerleaders/delete/**",
+                        "/api/v1/news/create", "/api/v1/news/delete/**",
+                        "/api/v1/sponsors/create", "/api/v1/sponsors/delete/**",
+                        "/api/v1/videos/create", "/api/v1/videos/delete/**"
+                        )
+                .authenticated();
     }
 
 }

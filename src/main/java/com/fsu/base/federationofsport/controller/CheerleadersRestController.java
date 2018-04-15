@@ -26,13 +26,13 @@ public class CheerleadersRestController {
         return cheerleadersService.getAll();
     }
 
-    @PostMapping
+    @PostMapping(path = "/create")
     Cheerleader add(@RequestBody Cheerleader cheerleader){
 
         return cheerleadersService.add(cheerleader);
     }
 
-    @DeleteMapping(path = "/{id}")
+    @DeleteMapping(path = "/delete/{id}")
     void  delete(@PathVariable Long id){
         cheerleadersService.delete(id);
     }

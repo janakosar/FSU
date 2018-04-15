@@ -39,13 +39,13 @@ public class NewsRestController {
         return newsService.get(id);
     }
 
-    @PostMapping
+    @PostMapping(path = "/create")
     News add(@RequestBody News news){
 
         return newsService.add(news);
     }
 
-    @DeleteMapping(path = "/{id}")
+    @DeleteMapping(path = "/delete/{id}")
     void  delete(@PathVariable Long id){
         newsService.delete(id);
     }

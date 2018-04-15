@@ -26,13 +26,13 @@ public class TrainersRestController {
         return trainersService.getAll();
     }
 
-    @PostMapping
+    @PostMapping(path = "/create")
     Trainer add(@RequestBody Trainer trainer){
 
         return trainersService.add(trainer);
     }
 
-    @DeleteMapping(path = "/{id}")
+    @DeleteMapping(path = "/delete/{id}")
     void  delete(@PathVariable Long id){
         trainersService.delete(id);
     }

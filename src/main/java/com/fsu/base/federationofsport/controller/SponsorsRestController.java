@@ -24,13 +24,13 @@ public class SponsorsRestController {
         return sponsorsService.getAll();
     }
 
-    @PostMapping
+    @PostMapping(path = "/create")
     Sponsor add(@RequestBody Sponsor sponsor){
 
         return sponsorsService.add(sponsor);
     }
 
-    @DeleteMapping(path = "/{id}")
+    @DeleteMapping(path = "/delete/{id}")
     void  delete(@PathVariable Long id){
         sponsorsService.delete(id);
     }

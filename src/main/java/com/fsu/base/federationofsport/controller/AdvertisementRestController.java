@@ -24,13 +24,13 @@ public class AdvertisementRestController {
         return advertisementService.getAll();
     }
 
-    @PostMapping
+    @PostMapping(path = "/create")
     Advertisement add(@RequestBody Advertisement advertisement){
 
         return advertisementService.add(advertisement);
     }
 
-    @DeleteMapping(path = "/{id}")
+    @DeleteMapping(path = "/delete/{id}")
     void  delete(@PathVariable Long id){
         advertisementService.delete(id);
     }
