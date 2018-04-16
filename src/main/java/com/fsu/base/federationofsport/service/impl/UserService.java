@@ -28,6 +28,7 @@ public class UserService implements UserDetailsService, IUserService {
         this.userDao = userDao;
     }
 
+    @Override
     public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
         User user = userDao.findByUsername(userId);
         if (user == null) {
@@ -58,9 +59,6 @@ public class UserService implements UserDetailsService, IUserService {
 
     @Override
     public User save(User user) {
-        System.out.println("Save: " + user);
-        User saved = userDao.save(user);
-        System.out.println("Saved: " + saved);
-        return saved;
+        return userDao.save(user);
     }
 }

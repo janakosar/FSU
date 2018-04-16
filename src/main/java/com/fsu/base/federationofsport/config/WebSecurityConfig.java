@@ -1,16 +1,19 @@
 package com.fsu.base.federationofsport.config;
 
+import com.fsu.base.federationofsport.model.User;
+import com.fsu.base.federationofsport.service.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
@@ -25,10 +28,16 @@ import javax.servlet.http.HttpServletRequest;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+@Order(99)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Value("${security.user.name}")
+    private String username;
+    @Value("${security.user.password}")
+    private String password;
+
     @Resource(name = "userService")
-    private UserDetailsService userDetailsService;
+    private UserService userDetailsService;
 
     @Override
     @Bean
@@ -44,6 +53,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(encoder().encode(password));
+        userDetailsService.save(user);
 
         http
                 .csrf().disable()
@@ -84,12 +98,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return bean;
     }
 
-    private static class BasicRequestMatcher implements RequestMatcher {
-        @Override
-        public boolean matches(HttpServletRequest request) {
-            String auth = request.getHeader("Authorization");
-            return (auth != null && auth.startsWith("Basic"));
-        }
-    }
 }
 
