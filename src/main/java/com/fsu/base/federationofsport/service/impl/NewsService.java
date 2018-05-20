@@ -34,8 +34,8 @@ public class NewsService implements INewsService {
     }
 
     @Override
-    public Iterable<News> getByCategory(NewsCategory category) {
-        return newsDao.findAllByCategory(category);
+    public Iterable<News> getByCategory(String category) {
+        return newsDao.findAllByCategory(NewsCategory.valueOf(category.toUpperCase()));
     }
 
     @Override

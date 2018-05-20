@@ -27,8 +27,8 @@ public class NewsRestController {
         return newsService.getAll();
     }
 
-    @GetMapping(path = "/{category}")
-    Iterable<News> getAll(@PathVariable NewsCategory category){
+    @GetMapping(path = "category/{category}")
+    Iterable<News> getByCategory(@PathVariable String category){
 
         return newsService.getByCategory(category);
     }

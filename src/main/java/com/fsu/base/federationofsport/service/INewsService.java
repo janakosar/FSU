@@ -10,7 +10,7 @@ public interface INewsService {
 
     Iterable<News> getAll();
 
-    Iterable<News> getByCategory(NewsCategory category);
+    Iterable<News> getByCategory(String category);
 
     News get(long id);
 
