@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
  * Created by yana on 12.04.18.
  */
 @RestController
-@RequestMapping(value = "api/v1/advertisement")
+@RequestMapping(value = "api/advertisement")
 public class AdvertisementRestController {
 
     private IAdvertisementService advertisementService;
@@ -24,13 +24,13 @@ public class AdvertisementRestController {
         return advertisementService.getAll();
     }
 
-    @PostMapping(path = "/create")
+    @PostMapping
     Advertisement add(@RequestBody Advertisement advertisement){
 
         return advertisementService.add(advertisement);
     }
 
-    @DeleteMapping(path = "/delete/{id}")
+    @DeleteMapping(path = "/{id}")
     void  delete(@PathVariable Long id){
         advertisementService.delete(id);
     }

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
  * Created by yana on 12.04.18.
  */
 @RestController
-@RequestMapping(value = "/api/v1/news")
+@RequestMapping(value = "/api/news")
 public class NewsRestController {
 
     private INewsService newsService;
@@ -39,13 +39,13 @@ public class NewsRestController {
         return newsService.get(id);
     }
 
-    @PostMapping(path = "/create")
+    @PostMapping
     News add(@RequestBody News news){
 
         return newsService.add(news);
     }
 
-    @DeleteMapping(path = "/delete/{id}")
+    @DeleteMapping(path = "/{id}")
     void  delete(@PathVariable Long id){
         newsService.delete(id);
     }

@@ -28,19 +28,6 @@ public class ImagesRestController {
         this.storageService = storageService;
     }
 
-
-//    @PostMapping("/images/upload")
-//    public ResponseEntity<Image> handleFileUpload(@RequestParam("file") MultipartFile file) {
-//        try {
-//            storageService.store(file);
-//            files.add(file.getOriginalFilename());
-//            return ResponseEntity.status(HttpStatus.OK).body(new Image(file.getOriginalFilename()));
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(null);
-//        }
-//    }
-
     @GetMapping("/images/{filename:.+}")
     @ResponseBody
     public ResponseEntity<Resource> getFile(@PathVariable String filename) {

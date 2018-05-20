@@ -8,9 +8,9 @@ public interface IUserService {
 
 	User save(User user);
 
-	List<User> findAll();
+	Iterable<User> findAll();
 
-	User findById(long id);
+	User findByUsername(String id);
 
-	void delete(long id);
+	void delete(String id);
 }

@@ -8,6 +8,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,47 +19,49 @@ import java.util.List;
  * Created by yana on 04.04.18.
  */
 
-@Service(value = "userService")
+@Service
 public class UserService implements UserDetailsService, IUserService {
 
     private UserDao userDao;
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
-    UserService(UserDao userDao){
+    public UserService(UserDao userDao,
+                        BCryptPasswordEncoder passwordEncoder) {
         this.userDao = userDao;
+        this.passwordEncoder = passwordEncoder;
+    }
+
+
+    @Override
+    public User loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userDao.findOne(username);
     }
 
     @Override
-    public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
-        User user = userDao.findByUsername(userId);
-        if (user == null) {
-            throw new UsernameNotFoundException("Invalid username or password.");
-        }
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), getAuthority());
-    }
-
-    private List<SimpleGrantedAuthority> getAuthority() {
-        return Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN"));
-    }
-
-    public List<User> findAll() {
-        List<User> list = new ArrayList<>();
-        userDao.findAll().iterator().forEachRemaining(list::add);
-        return list;
-    }
-
-    @Override
-    public User findById(long id) {
+    public User findByUsername(String id) {
         return userDao.findOne(id);
     }
 
     @Override
-    public void delete(long id) {
+    public Iterable<User> findAll() {
+        return userDao.findAll();
+    }
+
+    @Override
+    public void delete(String id) {
         userDao.delete(id);
     }
 
     @Override
-    public User save(User user) {
-        return userDao.save(user);
+    public User save(User user){
+
+        String password = user.getPassword();
+        user.setPassword(passwordEncoder.encode(password));
+
+        User saved = userDao.save(user);
+        saved.setPassword(password);
+
+        return saved;
     }
 }

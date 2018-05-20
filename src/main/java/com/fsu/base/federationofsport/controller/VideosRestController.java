@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
  * Created by yana on 12.04.18.
  */
 @RestController
-@RequestMapping(value = "/api/v1/videos")
+@RequestMapping(value = "/api/videos")
 public class VideosRestController {
 
     private IVideosService videosService;
@@ -26,13 +26,13 @@ public class VideosRestController {
     }
 
 
-    @PostMapping(path = "/create")
+    @PostMapping
     Video add(@RequestBody Video video){
 
         return videosService.add(video);
     }
 
-    @DeleteMapping(path = "/delete/{id}")
+    @DeleteMapping(path = "/{id}")
     void  delete(@PathVariable Long id){
         videosService.delete(id);
     }

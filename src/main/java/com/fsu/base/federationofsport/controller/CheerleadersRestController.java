@@ -1,8 +1,6 @@
 package com.fsu.base.federationofsport.controller;
 
-import com.fsu.base.federationofsport.model.Advertisement;
 import com.fsu.base.federationofsport.model.Cheerleader;
-import com.fsu.base.federationofsport.service.IAdvertisementService;
 import com.fsu.base.federationofsport.service.ICheerleadersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
  * Created by yana on 12.04.18.
  */
 @RestController
-@RequestMapping(value = "/api/v1/cheerleaders")
+@RequestMapping(value = "/api/cheerleaders")
 public class CheerleadersRestController {
 
     private ICheerleadersService cheerleadersService;
@@ -26,13 +24,13 @@ public class CheerleadersRestController {
         return cheerleadersService.getAll();
     }
 
-    @PostMapping(path = "/create")
+    @PostMapping
     Cheerleader add(@RequestBody Cheerleader cheerleader){
 
         return cheerleadersService.add(cheerleader);
     }
 
-    @DeleteMapping(path = "/delete/{id}")
+    @DeleteMapping
     void  delete(@PathVariable Long id){
         cheerleadersService.delete(id);
     }

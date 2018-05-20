@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
  * Created by yana on 12.04.18.
  */
 @RestController
-@RequestMapping(value = "/api/v1/sponsors")
+@RequestMapping(value = "/api/sponsors")
 public class SponsorsRestController {
 
     private ISponsorsService sponsorsService;
@@ -24,13 +24,13 @@ public class SponsorsRestController {
         return sponsorsService.getAll();
     }
 
-    @PostMapping(path = "/create")
+    @PostMapping
     Sponsor add(@RequestBody Sponsor sponsor){
 
         return sponsorsService.add(sponsor);
     }
 
-    @DeleteMapping(path = "/delete/{id}")
+    @DeleteMapping(path = "/{id}")
     void  delete(@PathVariable Long id){
         sponsorsService.delete(id);
     }

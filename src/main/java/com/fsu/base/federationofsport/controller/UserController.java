@@ -5,14 +5,14 @@ import com.fsu.base.federationofsport.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.security.Principal;
 
 /**
  * Created by yana on 04.04.18.
  */
 
 @RestController
-@RequestMapping("api/v1/users")
+@RequestMapping("api/users")
 public class UserController {
 
     private IUserService userService;
@@ -23,13 +23,19 @@ public class UserController {
     }
 
     @GetMapping
-    public List<User> getAll(){
+    public Iterable<User> getAll(){
         return userService.findAll();
     }
 
-    @GetMapping(path="/{id}")
-    public User get(@PathVariable Long id){
-        return userService.findById(id);
+    @GetMapping(path="/me")
+    public User getMe(Principal principal){
+        return userService.findByUsername(principal.getName());
+    }
+
+
+    @GetMapping(path="/{username}")
+    public User get(@PathVariable String username){
+        return userService.findByUsername(username);
     }
 
     @PostMapping
@@ -37,9 +43,9 @@ public class UserController {
         return userService.save(user);
     }
 
-    @DeleteMapping(path = "/{id}")
-    public void delete(@PathVariable Long id){
-        userService.delete(id);
+    @DeleteMapping(path = "/{username}")
+    public void delete(@PathVariable String username){
+        userService.delete(username);
     }
 
 }
