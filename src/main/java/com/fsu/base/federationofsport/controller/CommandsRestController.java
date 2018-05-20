@@ -5,10 +5,8 @@ import com.fsu.base.federationofsport.service.ICommandsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@RequestMapping(path = "/api/commands")
+@RequestMapping(path = "/api/")
 public class CommandsRestController {
 
     private ICommandsService commandsService;
@@ -18,22 +16,30 @@ public class CommandsRestController {
         this.commandsService = commandsService;
     }
 
-    @PostMapping
-    public Command create(@RequestBody Command command) {
-        return commandsService.create(command);
+    @PostMapping(path = "leagues/{leagueId}/commands")
+    public Command create(@PathVariable Long leagueId,
+                          @RequestBody Command command) {
+        return commandsService.create(leagueId, command);
     }
 
-    @GetMapping(path = "/{id}")
+    @GetMapping(path = "commands/{id}")
     public Command getById(@PathVariable Long id){
         return commandsService.getById(id);
     }
 
-    @GetMapping
+
+    @GetMapping(path = "leagues/{leagueId}/commands")
+    public
+    Iterable<Command> getByLeague(@PathVariable Long leagueId){
+        return commandsService.getAllByLeague(leagueId);
+    }
+
+    @GetMapping(path = "commands")
     public Iterable<Command> getAll(){
         return commandsService.getAll();
     }
 
-    @DeleteMapping(path = "/id")
+    @DeleteMapping(path = "commands/{id}")
     public void delete(@PathVariable Long id){
         commandsService.delete(id);
     }

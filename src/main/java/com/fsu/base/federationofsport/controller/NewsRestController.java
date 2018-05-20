@@ -27,11 +27,11 @@ public class NewsRestController {
         return newsService.getAll();
     }
 
-//    @GetMapping(path = "/{category}")
-//    Iterable<News> getAll(@PathVariable NewsCategory category){
-//
-//        return newsService.getAll(category);
-//    }
+    @GetMapping(path = "/{category}")
+    Iterable<News> getAll(@PathVariable NewsCategory category){
+
+        return newsService.getByCategory(category);
+    }
 
     @GetMapping(path = "/{id}")
     News get(@PathVariable Long id){

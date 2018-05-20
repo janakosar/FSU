@@ -9,5 +9,5 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface NewsDao extends CrudRepository<News, Long> {
 
-//    Iterable<News> findAll(NewsCategory category);
+    Iterable<News> findAllByCategory(NewsCategory category);
 }

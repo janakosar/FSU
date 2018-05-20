@@ -3,6 +3,7 @@ package com.fsu.base.federationofsport.service.impl;
 import com.fsu.base.federationofsport.controller.ImagesRestController;
 import com.fsu.base.federationofsport.dao.NewsDao;
 import com.fsu.base.federationofsport.model.News;
+import com.fsu.base.federationofsport.model.NewsCategory;
 import com.fsu.base.federationofsport.service.INewsService;
 import com.fsu.base.federationofsport.storage.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,10 +33,10 @@ public class NewsService implements INewsService {
         return newsDao.findAll();
     }
 
-//    @Override
-//    public Iterable<News> getAll(NewsCategory category) {
-//        return newsDao.findAll(category);
-//    }
+    @Override
+    public Iterable<News> getByCategory(NewsCategory category) {
+        return newsDao.findAllByCategory(category);
+    }
 
     @Override
     public News get(long id) {

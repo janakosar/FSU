@@ -1,5 +1,6 @@
 package com.fsu.base.federationofsport.config;
 
+import com.fsu.base.federationofsport.model.Player;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -7,6 +8,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHandler;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by yana on 04.04.18.
@@ -61,6 +63,24 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/api/videos**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/api/videos**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET, "/api/videos**").permitAll()
+
+                .antMatchers(HttpMethod.POST, "/api/passports**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/api/passports**").permitAll()
+                .antMatchers(HttpMethod.DELETE, "/api/passports**").hasRole("ADMIN")
+
+                .antMatchers(HttpMethod.POST, "/api/commands/**/players").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/api/players**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/api/players**").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/commands/**/players**").permitAll()
+
+                .antMatchers(HttpMethod.POST, "/api/leagues/**/commands").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/api/commands**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/api/commands**").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/leagues/**/commands**").permitAll()
+
+                .antMatchers(HttpMethod.POST, "/api/leagues/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/api/leagues**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/api/leagues/**").permitAll()
 
                 .and().exceptionHandling().accessDeniedHandler(new OAuth2AccessDeniedHandler())
 

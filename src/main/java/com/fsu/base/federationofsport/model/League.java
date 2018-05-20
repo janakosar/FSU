@@ -1,6 +1,5 @@
 package com.fsu.base.federationofsport.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,18 +12,16 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Command {
+public class League {
 
     @Id
     @GeneratedValue
     private long id;
 
     private String name;
+    @Enumerated(EnumType.STRING)
+    private CommandType type;
 
-    @OneToMany(mappedBy = "command")
-    private List<Player> players = new ArrayList<>();
-
-    @JsonIgnore
-    @ManyToOne
-    private League league;
+    @OneToMany(mappedBy = "league")
+    private List<Command> commands = new ArrayList<>();
 }

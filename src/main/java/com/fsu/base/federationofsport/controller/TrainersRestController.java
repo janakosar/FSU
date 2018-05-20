@@ -24,7 +24,7 @@ public class TrainersRestController {
         return trainersService.getAll();
     }
 
-    @PostMapping(path = "/create")
+    @PostMapping
     Trainer add(@RequestBody Trainer trainer){
 
         return trainersService.add(trainer);
