@@ -30,6 +30,11 @@ public class StorageService {
     private final Path rootLocation = Paths.get("upload-dir");
 
     public String store(String imageBase64) {
+
+        if (imageBase64 == null || imageBase64.isEmpty()){
+            return null;
+        }
+
         byte[] data = Base64.decodeBase64(imageBase64);
         String filename = "image_" + System.currentTimeMillis() + ".png";
         Path path = this.rootLocation.resolve(filename);
