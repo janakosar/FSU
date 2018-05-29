@@ -21,7 +21,7 @@ public class News {
     @Column(length = 500)
     private String title;
 
-    @Column(length = 3000)
+    @Column(columnDefinition = "TEXT", length = 25000)
     private String description;
 
     private String image;
