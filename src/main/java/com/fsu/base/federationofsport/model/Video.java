@@ -18,6 +18,8 @@ public class Video {
     private long id;
 
     private String href;
+
+    @Column(length = 3000)
     private String description;
 
     @Enumerated(EnumType.STRING)

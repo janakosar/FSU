@@ -18,7 +18,10 @@ public class News {
     @GeneratedValue
     private long id;
 
+    @Column(length = 500)
     private String title;
+
+    @Column(length = 3000)
     private String description;
 
     private String image;
