@@ -73,10 +73,16 @@ public class StorageService {
             if (resource.exists() || resource.isReadable()) {
                 return resource;
             } else {
-                throw new RuntimeException("FAIL!");
+                String errorMessage = "Failed to load " + filename + ": ";
+                if (!resource.exists()){
+                    errorMessage = errorMessage + "resource doesn't exists.";
+                }else {
+                    errorMessage = errorMessage + "resource isn't readable.";
+                }
+                throw new RuntimeException(errorMessage);
             }
         } catch (MalformedURLException e) {
-            throw new RuntimeException("FAIL!");
+            throw new RuntimeException("Error: " + e.getMessage());
         }
     }
 
