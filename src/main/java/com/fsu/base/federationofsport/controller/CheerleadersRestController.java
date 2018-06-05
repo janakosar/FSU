@@ -30,7 +30,7 @@ public class CheerleadersRestController {
         return cheerleadersService.add(cheerleader);
     }
 
-    @DeleteMapping
+    @DeleteMapping(path = "/{id}")
     void  delete(@PathVariable Long id){
         cheerleadersService.delete(id);
     }
