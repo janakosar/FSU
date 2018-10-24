@@ -2,6 +2,9 @@ package com.fsu.base.federationofsport.service;
 
 import com.fsu.base.federationofsport.model.Command;
 import com.fsu.base.federationofsport.model.League;
+import com.fsu.base.federationofsport.model.Player;
+
+import java.util.List;
 
 public interface ICommandsService {
 
@@ -10,6 +13,10 @@ public interface ICommandsService {
     Command create(League league, Command command);
 
     Command getById(long id);
+
+    Player addPlayer(long commandId, long playerId);
+
+    List<Player> addPlayers(long commandId, List<Long> playerIds);
 
     Iterable<Command> getAll();
 

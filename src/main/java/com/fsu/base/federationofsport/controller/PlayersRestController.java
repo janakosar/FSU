@@ -5,6 +5,17 @@ import com.fsu.base.federationofsport.service.IPlayersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * - create
+ * - remove
+ * - get
+ * - get all
+ * - add to command
+ * - add list to command
+ * - remove from command
+ * - get by command
+ * - get all
+ */
 @RestController
 @RequestMapping(path = "/api/")
 public class PlayersRestController {
@@ -16,9 +27,19 @@ public class PlayersRestController {
         this.playersService = playersService;
     }
 
-    @PostMapping(path = "commands/{commandId}/players")
-    public Player create(@PathVariable Long commandId, @RequestBody Player player) {
-        return playersService.create(commandId, player);
+    /**
+     * Create player not related with any command or lique
+     * @param player player to create
+     * @return instance of created player
+     */
+    @PostMapping(path = "players")
+    public Player create(@RequestBody Player player) {
+        return playersService.create(player);
+    }
+
+    @DeleteMapping(path = "players/id")
+    public void delete(@PathVariable Long id){
+        playersService.delete(id);
     }
 
     @GetMapping(path = "players/{id}")
@@ -36,8 +57,4 @@ public class PlayersRestController {
         return playersService.getAllByCommand(commandId);
     }
 
-    @DeleteMapping(path = "players/id")
-    public void delete(@PathVariable Long id){
-        playersService.delete(id);
-    }
 }

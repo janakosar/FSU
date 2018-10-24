@@ -6,13 +6,13 @@ import com.fsu.base.federationofsport.model.Command;
 import com.fsu.base.federationofsport.model.League;
 import com.fsu.base.federationofsport.model.Player;
 import com.fsu.base.federationofsport.service.ICommandsService;
-import com.fsu.base.federationofsport.service.ILeaguesService;
 import com.fsu.base.federationofsport.service.IPlayersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -48,6 +48,41 @@ public class CommandsService implements ICommandsService {
         }
 
         return savedCommand;
+    }
+
+    @Override
+    public Player addPlayer(long commandId, long playerId) {
+
+        Command command = commandsDao.findOne(commandId);
+        Player player = playersService.getById(playerId);
+
+        Set<Command> commands = player.getCommands();
+
+        if (!commands.contains(command)) {
+            commands.add(command);
+            player.setCommands(commands);
+        }
+        return playersService.create(player);
+    }
+
+    @Override
+    public List<Player> addPlayers(long commandId, List<Long> playerIds) {
+
+        Command command = commandsDao.findOne(commandId);
+
+        return playerIds.
+                stream()
+                .map(playerId -> playersService.getById(playerId))
+                .peek(player -> {
+                    Set<Command> commands = player.getCommands();
+
+                    if (!commands.contains(command)) {
+                        commands.add(command);
+                        player.setCommands(commands);
+                    }
+
+                }).collect(Collectors.toList());
+
     }
 
     private List<Player> savePlayers(Command command, List<Player> players) {

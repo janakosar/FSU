@@ -6,7 +6,7 @@ import com.fsu.base.federationofsport.model.Player;
 
 public interface IPlayersService {
 
-    Player create(Long commandId, Player player);
+    Player create(Player player);
 
     Player create(Command command, Player player);
 
