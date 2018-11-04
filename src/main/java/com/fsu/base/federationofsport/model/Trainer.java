@@ -21,8 +21,7 @@ public class Trainer {
     private long id;
 
     private String image;
-    private String firstName;
-    private String lastName;
+    private String fullName;
 
     @Column(length = 3000)
     private String description;

@@ -1,6 +1,5 @@
 package com.fsu.base.federationofsport.config;
 
-import com.fsu.base.federationofsport.model.Player;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -8,7 +7,6 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHandler;
-import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by yana on 04.04.18.
@@ -81,6 +79,10 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/api/leagues/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/api/leagues**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET, "/api/leagues/**").permitAll()
+
+                .antMatchers(HttpMethod.POST, "/api/images/upload").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/api/images**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/api/images/all").permitAll()
 
                 .and().exceptionHandling().accessDeniedHandler(new OAuth2AccessDeniedHandler())
 

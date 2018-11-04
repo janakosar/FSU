@@ -91,6 +91,10 @@ public class StorageService {
     }
 
     public void init() {
+
+        if (rootLocation.toFile().exists()) {
+            return;
+        }
         try {
             Files.createDirectory(rootLocation);
         } catch (IOException e) {

@@ -2,6 +2,7 @@ package com.fsu.base.federationofsport.config;
 
 import com.fsu.base.federationofsport.model.Role;
 import com.fsu.base.federationofsport.model.User;
+import com.fsu.base.federationofsport.service.IUserService;
 import com.fsu.base.federationofsport.service.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -30,9 +31,6 @@ import javax.annotation.Resource;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Resource(name = "userService")
-    private UserService userDetailsService;
-
     @Autowired
     private ClientDetailsService clientDetailsService;
 
@@ -43,13 +41,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Autowired
-    public void globalUserDetails(AuthenticationManagerBuilder auth) throws Exception {
+    public void globalUserDetails(AuthenticationManagerBuilder auth,
+                                  IUserService userService) throws Exception {
 
-        userDetailsService.save(createAdminUser());
-        userDetailsService.save(createBasicUser());
+        userService.save(createAdminUser());
+        userService.save(createBasicUser());
 
-        auth.userDetailsService(userDetailsService)
-                .passwordEncoder(passwordEncoder());
+        auth.userDetailsService(userService)
+                .passwordEncoder(new BCryptPasswordEncoder());
     }
 
     private User createAdminUser(){
@@ -117,9 +116,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         store.setTokenStore(tokenStore);
         return store;
     }
-
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-}
+  }

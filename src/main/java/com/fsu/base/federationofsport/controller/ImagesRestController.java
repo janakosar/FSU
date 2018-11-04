@@ -1,31 +1,29 @@
 package com.fsu.base.federationofsport.controller;
 
+import com.fsu.base.federationofsport.model.Image;
+import com.fsu.base.federationofsport.service.IImageService;
 import com.fsu.base.federationofsport.storage.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 
 /**
  * Created by yana on 10.04.18.
  */
-@Controller
+@RestController
 public class ImagesRestController {
 
     private StorageService storageService;
+    private IImageService imageService;
 
     @Autowired
-    ImagesRestController(StorageService storageService){
+    ImagesRestController(StorageService storageService,
+                         IImageService imageService){
         this.storageService = storageService;
+        this.imageService = imageService;
     }
 
     @GetMapping("/images/{filename:.+}")
@@ -36,4 +34,27 @@ public class ImagesRestController {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
                 .body(file);
     }
+
+    @GetMapping("/api/images/all")
+    Iterable<Image> getAll() {
+        return imageService.getAll();
+    }
+
+
+    @GetMapping(path = "/api/images/{id}")
+    Image get(@PathVariable Long id){
+        return imageService.get(id);
+    }
+
+    @PostMapping("/api/images/upload")
+    Image add(@RequestBody Image imageBase64){
+
+        return imageService.add(imageBase64);
+    }
+
+    @DeleteMapping(path = "/api/images/{id}")
+    void  delete(@PathVariable Long id){
+        imageService.delete(id);
+    }
+
 }
