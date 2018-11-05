@@ -14,12 +14,12 @@ public interface IPlayersService {
 
     Iterable<Player> getAll();
 
-    Iterable<Player> getAllByCommand(long commandId);
+//    Iterable<Player> getAllByCommand(long commandId);
 
     void delete(long id);
 
-    void deleteAllByCommand(Command command);
+//    void deleteAllByCommand(Command command);
 
-    void deleteAllByLeague(League league);
+//    void deleteAllByLeague(League league);
 
 }

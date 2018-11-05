@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Set;
 
 @Service
 public class PlayersService implements IPlayersService {
@@ -38,7 +39,9 @@ public class PlayersService implements IPlayersService {
     @Override
     public Player create(Command command, Player player) {
 
-        player.setCommand(command);
+//        Set<Command> commands = player.getCommands();
+//        commands.add(command);
+//        player.setCommands(commands);
         player.setImage(storageService.store(player.getImage()));
         return playersDao.save(player);
     }
@@ -53,25 +56,25 @@ public class PlayersService implements IPlayersService {
         return playersDao.findAll();
     }
 
-    @Override
-    public Iterable<Player> getAllByCommand(long commandId) {
-        return playersDao.findAllByCommand(commandsDao.findOne(commandId));
-    }
+//    @Override
+//    public Iterable<Player> getAllByCommand(long commandId) {
+//        return playersDao.findAllByCommand(commandsDao.findOne(commandId));
+//    }
 
     @Override
     public void delete(long id) {
         playersDao.delete(id);
     }
 
-    @Transactional
-    @Override
-    public void deleteAllByCommand(Command command) {
-        playersDao.deleteAllByCommand(command);
-    }
-
-    @Transactional
-    @Override
-    public void deleteAllByLeague(League league) {
-        playersDao.deleteAllByCommandLeague(league);
-    }
+//    @Transactional
+//    @Override
+//    public void deleteAllByCommand(Command command) {
+//        playersDao.deleteAllByCommand(command);
+//    }
+//
+//    @Transactional
+//    @Override
+//    public void deleteAllByLeague(League league) {
+//        playersDao.deleteAllByCommandLeague(league);
+//    }
 }

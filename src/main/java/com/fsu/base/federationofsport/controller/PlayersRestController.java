@@ -31,10 +31,10 @@ public class PlayersRestController {
         return playersService.getAll();
     }
 
-    @GetMapping(path = "commands/{commandId}/players")
-    public Iterable<Player> getAllByCommand(@PathVariable Long commandId){
-        return playersService.getAllByCommand(commandId);
-    }
+//    @GetMapping(path = "commands/{commandId}/players")
+//    public Iterable<Player> getAllByCommand(@PathVariable Long commandId){
+//        return playersService.getAllByCommand(commandId);
+//    }
 
     @DeleteMapping(path = "players/id")
     public void delete(@PathVariable Long id){

@@ -1,6 +1,8 @@
 package com.fsu.base.federationofsport.controller;
 
 import com.fsu.base.federationofsport.model.Command;
+import com.fsu.base.federationofsport.model.Passport;
+import com.fsu.base.federationofsport.model.Player;
 import com.fsu.base.federationofsport.service.ICommandsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +35,15 @@ public class CommandsRestController {
     Iterable<Command> getByLeague(@PathVariable Long leagueId){
         return commandsService.getAllByLeague(leagueId);
     }
+
+    @PostMapping(path = "leagues/{leagueId}/teams/{commandId}/players")
+    public
+    Command addPlayer(@PathVariable Long leagueId,
+                      @PathVariable Long commandId,
+                      @RequestBody Passport player){
+        return commandsService.addPlayer(leagueId, commandId, player);
+    }
+
 
     @GetMapping(path = "commands")
     public Iterable<Command> getAll(){

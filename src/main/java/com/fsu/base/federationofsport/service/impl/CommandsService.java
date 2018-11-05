@@ -4,9 +4,11 @@ import com.fsu.base.federationofsport.dao.CommandsDao;
 import com.fsu.base.federationofsport.dao.LeaguesDao;
 import com.fsu.base.federationofsport.model.Command;
 import com.fsu.base.federationofsport.model.League;
+import com.fsu.base.federationofsport.model.Passport;
 import com.fsu.base.federationofsport.model.Player;
 import com.fsu.base.federationofsport.service.ICommandsService;
 import com.fsu.base.federationofsport.service.ILeaguesService;
+import com.fsu.base.federationofsport.service.IPassportsService;
 import com.fsu.base.federationofsport.service.IPlayersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,12 +21,12 @@ import java.util.stream.Collectors;
 public class CommandsService implements ICommandsService {
 
     private CommandsDao commandsDao;
-    private IPlayersService playersService;
+    private IPassportsService playersService;
     private LeaguesDao leaguesDao;
 
     @Autowired
     public CommandsService(CommandsDao commandsDao,
-                           IPlayersService playersService,
+                           IPassportsService playersService,
                            LeaguesDao leaguesDao) {
         this.commandsDao = commandsDao;
         this.playersService = playersService;
@@ -38,22 +40,33 @@ public class CommandsService implements ICommandsService {
     }
 
     @Override
+    public Command addPlayer(long leagueId, long commandId, Passport player) {
+
+        Command command = commandsDao.findOne(commandId);
+        player.setCommand(command);
+
+        playersService.create(player);
+
+        return commandsDao.findOne(commandId);
+    }
+
+    @Override
     public Command create(League league, Command command) {
         command.setLeague(league);
         Command savedCommand = commandsDao.save(command);
 
-        if (command.getPlayers().size() > 0) {
-            savedCommand.setPlayers(
-                    savePlayers(savedCommand, command.getPlayers()));
+        if (command.getPassports().size() > 0) {
+            savedCommand.setPassports(
+                    savePlayers(savedCommand, command.getPassports()));
         }
 
         return savedCommand;
     }
 
-    private List<Player> savePlayers(Command command, List<Player> players) {
+    private List<Passport> savePlayers(Command command, List<Passport> players) {
 
         return players.stream()
-                .map(player -> playersService.create(command, player))
+                .map(player -> playersService.create(player))
                 .collect(Collectors.toList());
 
     }
@@ -76,7 +89,7 @@ public class CommandsService implements ICommandsService {
     @Transactional
     @Override
     public void delete(long id) {
-        playersService.deleteAllByCommand(commandsDao.findOne(id));
+//        playersService.deleteAllByCommand(commandsDao.findOne(id));
         commandsDao.delete(id);
     }
 
@@ -85,7 +98,7 @@ public class CommandsService implements ICommandsService {
     public void deleteAllByLeague(long leagueId) {
 
         League league = leaguesDao.findOne(leagueId);
-        playersService.deleteAllByLeague(league);
+//        playersService.deleteAllByLeague(league);
         commandsDao.deleteAllByLeague(league);
     }
 }

@@ -9,9 +9,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PlayersDao  extends CrudRepository<Player, Long> {
 
-    Iterable<Player> findAllByCommand(Command command);
-
-    void deleteAllByCommand(Command command);
-
-    void deleteAllByCommandLeague(League league);
+//    Iterable<Player> findAllByCommand(Command command);
+//
+//    void deleteAllByCommand(Command command);
+//
+//    void deleteAllByCommandLeague(League league);
 }

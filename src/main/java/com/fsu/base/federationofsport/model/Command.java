@@ -22,7 +22,7 @@ public class Command {
     private String name;
 
     @OneToMany(mappedBy = "command")
-    private List<Player> players = new ArrayList<>();
+    private List<Passport> passports = new ArrayList<>();
 
     @JsonIgnore
     @ManyToOne

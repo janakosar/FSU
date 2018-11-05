@@ -36,6 +36,12 @@ public class LeaguesService implements ILeaguesService {
         return savedLeague;
     }
 
+    @Override
+    public League addTeam(long leagueId, Command command) {
+        commandsService.create(leaguesDao.findOne(leagueId), command);
+        return leaguesDao.findOne(leagueId);
+    }
+
     private List<Command> saveCommands(League league, List<Command> commands) {
 
         return commands.stream()

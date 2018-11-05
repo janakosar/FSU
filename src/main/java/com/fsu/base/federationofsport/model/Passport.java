@@ -1,5 +1,6 @@
 package com.fsu.base.federationofsport.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -7,6 +8,7 @@ import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 @Getter @Setter @NoArgsConstructor
@@ -21,9 +23,11 @@ public class Passport {
     private String lastName;
     private String fatherName;
     private String city;
-    private String command;
 
     private double weight;
     private double height;
 
+    @JsonIgnore
+    @ManyToOne
+    private Command command;
 }
