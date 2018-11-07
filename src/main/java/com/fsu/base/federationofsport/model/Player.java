@@ -9,10 +9,8 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@Getter
-@Setter
-@NoArgsConstructor
 @Entity
+@Getter @Setter @NoArgsConstructor
 public class Player {
 
     @Id
@@ -22,6 +20,13 @@ public class Player {
     private String image;
     private String firstName;
     private String lastName;
-    private String position;
-    private String number;
+    private String fatherName;
+    private String city;
+
+    private double weight;
+    private double height;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "players")
+    private Set<Team> teams = new HashSet<>();
 }

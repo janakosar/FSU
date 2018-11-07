@@ -13,7 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Command {
+public class Team {
 
     @Id
     @GeneratedValue
@@ -23,11 +23,11 @@ public class Command {
 
     @ManyToMany(cascade = { CascadeType.ALL })
     @JoinTable(
-            name = "Command_Passport",
-            joinColumns = { @JoinColumn(name = "command_id") },
-            inverseJoinColumns = { @JoinColumn(name = "passport_id") }
+            name = "Team_Player",
+            joinColumns = { @JoinColumn(name = "team_id") },
+            inverseJoinColumns = { @JoinColumn(name = "player_id") }
     )
-    private List<Passport> passports = new ArrayList<>();
+    private List<Player> players = new ArrayList<>();
 
     @JsonIgnore
     @ManyToOne

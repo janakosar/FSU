@@ -1,6 +1,6 @@
 package com.fsu.base.federationofsport.controller;
 
-import com.fsu.base.federationofsport.model.Command;
+import com.fsu.base.federationofsport.model.Team;
 import com.fsu.base.federationofsport.model.League;
 import com.fsu.base.federationofsport.service.ILeaguesService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class LeaguesRestController {
 
     @PostMapping(path = "/{id}/teams")
     public League addTeam(@PathVariable Long id,
-                          @RequestBody Command team) {
+                          @RequestBody Team team) {
         return leaguesService.addTeam(id, team);
     }
 

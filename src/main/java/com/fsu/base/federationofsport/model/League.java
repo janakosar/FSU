@@ -20,8 +20,8 @@ public class League {
 
     private String name;
     @Enumerated(EnumType.STRING)
-    private CommandType type;
+    private TeamType type;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "league")
-    private List<Command> commands = new ArrayList<>();
+    private List<Team> teams = new ArrayList<>();
 }

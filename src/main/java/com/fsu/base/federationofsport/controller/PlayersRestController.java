@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(path = "/api/")
+@RequestMapping(path = "/api/players")
 public class PlayersRestController {
 
     private IPlayersService playersService;
@@ -16,28 +16,23 @@ public class PlayersRestController {
         this.playersService = playersService;
     }
 
-    @PostMapping(path = "commands/{commandId}/players")
-    public Player create(@PathVariable Long commandId, @RequestBody Player player) {
-        return playersService.create(commandId, player);
+    @PostMapping
+    public Player create(@RequestBody Player player) {
+        return playersService.create(player);
     }
 
-    @GetMapping(path = "players/{id}")
+    @GetMapping(path = "/{id}")
     public Player getById(@PathVariable Long id){
         return playersService.getById(id);
     }
 
-    @GetMapping(path = "players")
+    @GetMapping
     public Iterable<Player> getAll(){
         return playersService.getAll();
     }
 
-//    @GetMapping(path = "commands/{commandId}/players")
-//    public Iterable<Player> getAllByCommand(@PathVariable Long commandId){
-//        return playersService.getAllByCommand(commandId);
-//    }
-
-    @DeleteMapping(path = "players/id")
-    public void delete(@PathVariable Long id){
+    @DeleteMapping(path = "/{id}")
+    public @ResponseBody void delete(@PathVariable Long id){
         playersService.delete(id);
     }
 }

@@ -1,13 +1,13 @@
 package com.fsu.base.federationofsport.service;
 
-import com.fsu.base.federationofsport.model.Command;
+import com.fsu.base.federationofsport.model.Team;
 import com.fsu.base.federationofsport.model.League;
 
 public interface ILeaguesService {
 
     League create(League league);
 
-    League addTeam(long leagueId, Command command);
+    League addTeam(long leagueId, Team team);
 
     League getById(long id);
 

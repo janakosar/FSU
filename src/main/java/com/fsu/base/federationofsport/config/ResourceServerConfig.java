@@ -62,19 +62,19 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .antMatchers(HttpMethod.DELETE, "/api/videos**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET, "/api/videos**").permitAll()
 
-                .antMatchers(HttpMethod.POST, "/api/passports**").hasRole("ADMIN")
-                .antMatchers(HttpMethod.GET, "/api/passports**").permitAll()
-                .antMatchers(HttpMethod.DELETE, "/api/passports**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/api/players**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/api/players**").permitAll()
+                .antMatchers(HttpMethod.DELETE, "/api/players**").hasRole("ADMIN")
 
-                .antMatchers(HttpMethod.POST, "/api/commands/**/players").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/api/teams/**/players").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/api/players**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET, "/api/players**").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/commands/**/players**").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/teams/**/players**").permitAll()
 
-                .antMatchers(HttpMethod.POST, "/api/leagues/**/commands").hasRole("ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/api/commands**").hasRole("ADMIN")
-                .antMatchers(HttpMethod.GET, "/api/commands**").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/leagues/**/commands**").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/leagues/**/teams").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/api/teams**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/api/teams**").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/leagues/**/teams**").permitAll()
 
                 .antMatchers(HttpMethod.POST, "/api/leagues/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/api/leagues**").hasRole("ADMIN")

@@ -1,9 +1,9 @@
 package com.fsu.base.federationofsport.service.impl;
 
 import com.fsu.base.federationofsport.dao.LeaguesDao;
-import com.fsu.base.federationofsport.model.Command;
+import com.fsu.base.federationofsport.model.Team;
 import com.fsu.base.federationofsport.model.League;
-import com.fsu.base.federationofsport.service.ICommandsService;
+import com.fsu.base.federationofsport.service.ITeamsService;
 import com.fsu.base.federationofsport.service.ILeaguesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,36 +16,36 @@ import java.util.stream.Collectors;
 public class LeaguesService implements ILeaguesService {
 
     private LeaguesDao leaguesDao;
-    private ICommandsService commandsService;
+    private ITeamsService teamsService;
 
     @Autowired
     public LeaguesService(LeaguesDao leaguesDao,
-                          ICommandsService commandsService) {
+                          ITeamsService teamsService) {
         this.leaguesDao = leaguesDao;
-        this.commandsService = commandsService;
+        this.teamsService = teamsService;
     }
 
     @Override
     public League create(League league) {
         League savedLeague = leaguesDao.save(league);
 
-        if (savedLeague.getCommands().size() > 0) {
-            savedLeague.setCommands(saveCommands(savedLeague, league.getCommands()));
+        if (savedLeague.getTeams().size() > 0) {
+            savedLeague.setTeams(saveTeams(savedLeague, league.getTeams()));
         }
 
         return savedLeague;
     }
 
     @Override
-    public League addTeam(long leagueId, Command command) {
-        commandsService.create(leaguesDao.findOne(leagueId), command);
+    public League addTeam(long leagueId, Team team) {
+        teamsService.create(leaguesDao.findOne(leagueId), team);
         return leaguesDao.findOne(leagueId);
     }
 
-    private List<Command> saveCommands(League league, List<Command> commands) {
+    private List<Team> saveTeams(League league, List<Team> teams) {
 
-        return commands.stream()
-                .map(command -> commandsService.create(league, command))
+        return teams.stream()
+                .map(team -> teamsService.create(league, team))
                 .collect(Collectors.toList());
     }
 
@@ -62,7 +62,7 @@ public class LeaguesService implements ILeaguesService {
     @Transactional
     @Override
     public void delete(long id) {
-        commandsService.deleteAllByLeague(id);
+        teamsService.deleteAllByLeague(id);
         leaguesDao.delete(id);
     }
 }
