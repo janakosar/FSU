@@ -21,7 +21,12 @@ public class Command {
 
     private String name;
 
-    @OneToMany(mappedBy = "command")
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+            name = "Command_Passport",
+            joinColumns = { @JoinColumn(name = "command_id") },
+            inverseJoinColumns = { @JoinColumn(name = "passport_id") }
+    )
     private List<Passport> passports = new ArrayList<>();
 
     @JsonIgnore

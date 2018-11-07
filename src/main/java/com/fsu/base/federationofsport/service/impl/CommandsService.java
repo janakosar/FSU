@@ -43,11 +43,13 @@ public class CommandsService implements ICommandsService {
     public Command addPlayer(long leagueId, long commandId, Passport player) {
 
         Command command = commandsDao.findOne(commandId);
-        player.setCommand(command);
+        List<Passport> passports = command.getPassports();
+        passports.add(player);
 
-        playersService.create(player);
+        command.setPassports(passports);
 
-        return commandsDao.findOne(commandId);
+
+        return commandsDao.save(command);
     }
 
     @Override

@@ -22,6 +22,6 @@ public class League {
     @Enumerated(EnumType.STRING)
     private CommandType type;
 
-    @OneToMany(mappedBy = "league")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "league")
     private List<Command> commands = new ArrayList<>();
 }
