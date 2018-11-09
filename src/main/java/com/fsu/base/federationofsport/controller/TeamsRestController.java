@@ -17,12 +17,6 @@ public class TeamsRestController {
         this.teamsService = teamsService;
     }
 
-    @PostMapping(path = "leagues/{leagueId}/teams")
-    public Team create(@PathVariable Long leagueId,
-                       @RequestBody Team team) {
-        return teamsService.create(leagueId, team);
-    }
-
     @GetMapping(path = "teams/{id}")
     public Team getById(@PathVariable Long id){
         return teamsService.getById(id);

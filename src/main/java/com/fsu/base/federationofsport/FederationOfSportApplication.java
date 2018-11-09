@@ -9,7 +9,6 @@ import org.springframework.context.annotation.ComponentScan;
 import javax.annotation.Resource;
 
 @SpringBootApplication
-@ComponentScan
 public class FederationOfSportApplication implements CommandLineRunner {
 
     @Resource
