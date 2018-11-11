@@ -14,8 +14,6 @@ public interface ITeamsService {
 
     Team removePlayer(long teamId, long playerId);
 
-    void removePlayerFromAllTeams(long playerId);
-
     void removeAllPlayersFromTeam(long teamId);
 
     Team getById(long id);
