@@ -12,6 +12,12 @@ public interface ITeamsService {
 
     Team addPlayer(long leagueId, long teamId, Player player);
 
+    Team removePlayer(long teamId, long playerId);
+
+    void removePlayerFromAllTeams(long playerId);
+
+    void removeAllPlayersFromTeam(long teamId);
+
     Team getById(long id);
 
     Iterable<Team> getAll();

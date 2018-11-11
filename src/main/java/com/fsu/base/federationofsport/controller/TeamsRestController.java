@@ -18,32 +18,37 @@ public class TeamsRestController {
     }
 
     @GetMapping(path = "teams/{id}")
-    public Team getById(@PathVariable Long id){
+    public Team getById(@PathVariable Long id) {
         return teamsService.getById(id);
     }
 
 
     @GetMapping(path = "leagues/{leagueId}/teams")
-    public
-    Iterable<Team> getByLeague(@PathVariable Long leagueId){
+    public Iterable<Team> getByLeague(@PathVariable Long leagueId) {
         return teamsService.getAllByLeague(leagueId);
     }
 
     @PostMapping(path = "leagues/{leagueId}/teams/{teamId}/players")
     public Team addPlayer(@PathVariable Long leagueId,
                           @PathVariable Long teamId,
-                          @RequestBody Player player){
+                          @RequestBody Player player) {
         return teamsService.addPlayer(leagueId, teamId, player);
+    }
+
+    @DeleteMapping(path = "teams/{teamId}/players/{playerId}/remove")
+    public Team removePlayer(@PathVariable Long teamId,
+                             @PathVariable Long playerId) {
+        return teamsService.removePlayer(teamId, playerId);
     }
 
 
     @GetMapping(path = "teams")
-    public Iterable<Team> getAll(){
+    public Iterable<Team> getAll() {
         return teamsService.getAll();
     }
 
     @DeleteMapping(path = "teams/{id}")
-    public void delete(@PathVariable Long id){
+    public void delete(@PathVariable Long id) {
         teamsService.delete(id);
     }
 }

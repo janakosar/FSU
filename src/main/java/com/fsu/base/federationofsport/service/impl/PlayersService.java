@@ -12,6 +12,8 @@ public class PlayersService implements IPlayersService {
 
     private PlayersDao playersDao;
     private StorageService storageService;
+    private TeamsService teamsService;
+
 
     @Autowired
     public PlayersService(PlayersDao playersDao,
@@ -38,6 +40,7 @@ public class PlayersService implements IPlayersService {
 
     @Override
     public void delete(long id) {
+        teamsService.removePlayerFromAllTeams(id);
         playersDao.delete(id);
     }
 }

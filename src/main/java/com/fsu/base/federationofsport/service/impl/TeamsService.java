@@ -1,5 +1,6 @@
 package com.fsu.base.federationofsport.service.impl;
 
+import com.fsu.base.federationofsport.dao.PlayersDao;
 import com.fsu.base.federationofsport.dao.TeamsDao;
 import com.fsu.base.federationofsport.dao.LeaguesDao;
 import com.fsu.base.federationofsport.model.Team;
@@ -11,6 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,6 +51,33 @@ public class TeamsService implements ITeamsService {
 
 
         return teamsDao.save(team);
+    }
+
+    @Override
+    public Team removePlayer(long teamId, long playerId) {
+
+        Team team = teamsDao.findOne(teamId);
+        List<Player> players = team.getPlayers().stream()
+                .filter(player -> player.getId() != playerId)
+                .collect(Collectors.toList());
+
+        team.setPlayers(players);
+
+        return teamsDao.save(team);
+    }
+
+    @Override
+    public void removePlayerFromAllTeams(long playerId) {
+        teamsDao.findAllByPlayers(Collections.singletonList(playersService.getById(playerId)))
+                .forEach(team -> removePlayer(team.getId(), playerId));
+    }
+
+    @Override
+    public void removeAllPlayersFromTeam(long teamId) {
+        Team team = teamsDao.findOne(teamId);
+        team.setPlayers(new ArrayList<>());
+
+        teamsDao.save(team);
     }
 
     @Override

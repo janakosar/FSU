@@ -62,6 +62,8 @@ public class LeaguesService implements ILeaguesService {
     @Transactional
     @Override
     public void delete(long id) {
+        teamsService.getAllByLeague(id)
+                .forEach(team -> teamsService.removeAllPlayersFromTeam(team.getId()));
         teamsService.deleteAllByLeague(id);
         leaguesDao.delete(id);
     }

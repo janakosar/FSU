@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface LeaguesDao extends CrudRepository<League, Long> {
+
+
 }
